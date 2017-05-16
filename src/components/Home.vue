@@ -22,7 +22,8 @@ export default {
       title: 'หน้าหลัก',
       pageTopic: 'ตารางการขอใช้รถประจำเดือน',
       eventDatas: [],
-      demoEvents: []
+      demoEvents: [],
+      position: []
     }
   },
   components: {
@@ -30,6 +31,7 @@ export default {
   },
   created () {
     this.getEventDatas()
+    this.getGeolocation()
   },
   methods: {
     getEventDatas () {
@@ -56,6 +58,15 @@ export default {
       .catch(
         (error) => console.log(error)
       )
+    },
+    getGeolocation () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.position = position.coords
+        })
+      } else {
+        console.log('Error...')
+      }
     }
   }
 }
